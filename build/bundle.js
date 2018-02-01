@@ -4,11 +4,16 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getTileShelf = exports.LetterBag = exports.Board = undefined;
+exports.getTileShelf = exports.Board = undefined;
 
 var _spaces = require('./spaces');
 
 var _tiles = require('./tiles');
+
+var leftOverTiles = Letters();
+var playerOne = true;
+var word = [];
+var currentShelf = [];
 
 function Board() {
   var board = document.getElementById('board');
@@ -19,8 +24,6 @@ function Board() {
 
   board.innerHTML = boardSpaces.join(" ");
 }
-
-var leftOverTiles = Letters();
 
 function Letters() {
   var allTiles = [];
@@ -44,6 +47,7 @@ function LetterBag() {
   });
 
   letterBagEl.innerHTML = letterBag.join(" ");
+
   return allTiles;
 }
 
@@ -82,13 +86,50 @@ function resetBag(chosenLetters, leftOverLetters) {
 
 function getTileShelf() {
   var tileShelf = document.getElementById("tile-shelf");
+  var getLettersButton = document.getElementById('get-letters');
   var playerTiles = chooseTiles();
 
   var chosenTiles = playerTiles.map(function (letter, i) {
-    return '<div class="letter">' + letter.name + '</div>';
+    return '<div data-id=\'' + letter.name + '\' class=\'letter\'>' + letter.name + '<span class="points">' + letter.points + '</span></div>';
   });
 
   tileShelf.innerHTML = chosenTiles.join(" ");
+  getLettersButton.style.display = 'none';
+
+  var htmlTiles = document.getElementsByClassName("letter");
+
+  var _loop = function _loop() {
+    var tile = htmlTiles[i];
+    htmlTiles[i].addEventListener('click', function (evt) {
+      return addToWord(tile, playerTiles);
+    });
+  };
+
+  for (var i = 0; i < htmlTiles.length; i++) {
+    _loop();
+  }
+}
+
+function addToWord(tile, tilesOnShelf) {
+  var tileShelf = document.getElementById("tile-shelf");
+  var clickedLetter = tile.getAttribute('data-id');
+  var wordLetter = '<div>' + clickedLetter + '</div>';
+
+  tile.style.display = 'none';
+  word.push(wordLetter);
+
+  for (var i = 0; i < tilesOnShelf.length; i++) {
+    var _tile = tilesOnShelf[i];
+    if (_tile.name === clickedLetter) {
+      tilesOnShelf.splice(tilesOnShelf[i], 1);
+    }
+  }
+
+  var wordWrapper = document.getElementById('word');
+  wordWrapper.innerHTML = word.join(" ");
+
+  console.log(word);
+  return tilesOnShelf;
 }
 
 function getRandomNumber(letters) {
@@ -96,7 +137,6 @@ function getRandomNumber(letters) {
 }
 
 exports.Board = Board;
-exports.LetterBag = LetterBag;
 exports.getTileShelf = getTileShelf;
 
 },{"./spaces":3,"./tiles":4}],2:[function(require,module,exports){
@@ -133,6 +173,6 @@ var spaces = exports.spaces = [{ id: 1, type: 'tw' }, { id: 2, type: ' ' }, { id
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var tiles = exports.tiles = [{ name: " ", count: 2, points: 0 }, { name: "A", count: 9, points: 1 }, { name: "B", count: 2, points: 3 }, { name: "C", count: 2, points: 3 }, { name: "D", count: 4, points: 2 }, { name: "E", count: 12, points: 1 }, { name: "F", count: 2, points: 4 }, { name: "G", count: 3, points: 2 }, { name: "H", count: 2, points: 4 }, { name: "I", count: 9, points: 1 }, { name: "J", count: 1, points: 8 }, { name: "K", count: 1, points: 5 }, { name: "L", count: 4, points: 1 }, { name: "M", count: 2, points: 3 }, { name: "N", count: 6, points: 1 }, { name: "O", count: 8, points: 1 }, { name: "P", count: 2, points: 3 }, { name: "Q", count: 1, points: 10 }, { name: "R", count: 6, points: 1 }, { name: "S", count: 4, points: 1 }, { name: "T", count: 6, points: 1 }, { name: "U", count: 4, points: 1 }, { name: "V", count: 2, points: 4 }, { name: "W", count: 2, points: 4 }, { name: "X", count: 1, points: 8 }, { name: "Y", count: 2, points: 4 }, { name: "Z", count: 1, points: 10 }];
+var tiles = exports.tiles = [{ name: "__", count: 2, points: 0 }, { name: "A", count: 9, points: 1 }, { name: "B", count: 2, points: 3 }, { name: "C", count: 2, points: 3 }, { name: "D", count: 4, points: 2 }, { name: "E", count: 12, points: 1 }, { name: "F", count: 2, points: 4 }, { name: "G", count: 3, points: 2 }, { name: "H", count: 2, points: 4 }, { name: "I", count: 9, points: 1 }, { name: "J", count: 1, points: 8 }, { name: "K", count: 1, points: 5 }, { name: "L", count: 4, points: 1 }, { name: "M", count: 2, points: 3 }, { name: "N", count: 6, points: 1 }, { name: "O", count: 8, points: 1 }, { name: "P", count: 2, points: 3 }, { name: "Q", count: 1, points: 10 }, { name: "R", count: 6, points: 1 }, { name: "S", count: 4, points: 1 }, { name: "T", count: 6, points: 1 }, { name: "U", count: 4, points: 1 }, { name: "V", count: 2, points: 4 }, { name: "W", count: 2, points: 4 }, { name: "X", count: 1, points: 8 }, { name: "Y", count: 2, points: 4 }, { name: "Z", count: 1, points: 10 }];
 
 },{}]},{},[2]);

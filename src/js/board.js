@@ -1,6 +1,11 @@
 import {spaces} from './spaces'
 import {tiles} from './tiles'
 
+let leftOverTiles = Letters();
+let playerOne = true;
+let word = [];
+let currentShelf = [];
+
 function Board() {
   const board = document.getElementById('board');
 
@@ -12,8 +17,6 @@ function Board() {
 
   board.innerHTML = boardSpaces.join(" ");
 }
-
-let leftOverTiles = Letters();
 
 function Letters() {
   const allTiles = [];
@@ -39,6 +42,7 @@ function LetterBag() {
   })
 
   letterBagEl.innerHTML = letterBag.join(" ");
+
   return allTiles
 }
 
@@ -64,7 +68,6 @@ function chooseTiles() {
     resetBag(chosenLetters, leftOverLetters);
   }
 
-
   return playerTiles;
 }
 
@@ -78,19 +81,51 @@ function resetBag(chosenLetters, leftOverLetters) {
 
 function getTileShelf() {
   const tileShelf = document.getElementById("tile-shelf");
+  const getLettersButton = document.getElementById('get-letters');
   let playerTiles = chooseTiles();
 
   const chosenTiles = playerTiles.map((letter, i) => {
     return (
-      `<div class="letter">${letter.name}</div>`
+      `<div data-id='${letter.name}' class='letter'>${letter.name}<span class="points">${letter.points}</span></div>`
     );
   })
 
   tileShelf.innerHTML = chosenTiles.join(" ");
+  getLettersButton.style.display = 'none';
+
+  const htmlTiles = document.getElementsByClassName("letter");
+
+  for (var i = 0; i < htmlTiles.length; i++) {
+    const tile = htmlTiles[i];
+    htmlTiles[i].addEventListener('click', evt => addToWord(tile, playerTiles));
+  }
+}
+
+
+function addToWord(tile, tilesOnShelf) {
+  const tileShelf = document.getElementById("tile-shelf");
+  let clickedLetter = tile.getAttribute('data-id');
+  const wordLetter = `<div>${clickedLetter}</div>`;
+
+  tile.style.display = 'none';
+  word.push(wordLetter);
+
+  for (var i = 0; i < tilesOnShelf.length; i++) {
+    const tile = tilesOnShelf[i];
+    if (tile.name === clickedLetter) {
+      tilesOnShelf.splice(tilesOnShelf[i], 1);
+    }
+  }
+
+  const wordWrapper = document.getElementById('word');
+  wordWrapper.innerHTML = word.join(" ");
+
+  console.log(word);
+  return tilesOnShelf;
 }
 
 function getRandomNumber(letters) {
   return Math.floor(Math.random() * (letters - 0) + 0);
 }
 
-export {Board, LetterBag, getTileShelf};
+export {Board, getTileShelf};
