@@ -19,8 +19,7 @@ body {
   width: 400px;
   margin: 0 auto;
   height: 400px;
-  margin: 30px auto 10px auto;
-  margin-top: 30px;
+  margin: 50px auto 10px auto;
 }
 
 #board {
@@ -123,10 +122,11 @@ button:focus {
   top: 0;
   left: 0;
   right: 0;
-  height: 30px;
+  height: 60px;
   font-size: .675em;
   text-transform: uppercase;
   letter-spacing: .09em;
+  padding-top: 20px;
 }
 
 #word {
