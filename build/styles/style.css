@@ -1,0 +1,101 @@
+html {
+  box-sizing: border-box; }
+
+*, *:before, *:after {
+  box-sizing: inherit; }
+
+#main-wrapper {
+  margin-top: 30px; }
+
+.board-wrapper {
+  border: 10px solid #eee;
+  width: 400px;
+  margin: 0 auto;
+  height: 400px;
+  margin: 30px auto 10px auto;
+  margin-top: 30px; }
+
+#board {
+  border: 1px solid #000;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; }
+
+.space {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  width: 6.6667%;
+  font-size: .4em;
+  height: 6.6667%; }
+
+.space.dl {
+  background: #3399cc; }
+
+.space.tw {
+  background: #ff0000; }
+
+.space.tl {
+  background: #ffff00; }
+
+.space.dw {
+  background: #33cc99; }
+
+.space.star {
+  background: #ff0000; }
+
+button {
+  margin: 0 auto;
+  display: block;
+  width: auto; }
+
+button:focus {
+  outline: 0; }
+
+#letter-bag {
+  margin-top: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap; }
+
+#letter-bag .letter {
+  height: 20px;
+  width: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #000;
+  margin: 5px; }
+
+#tile-shelf {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  margin-bottom: 20px; }
+
+#tile-shelf .letter {
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #000;
+  margin: 0 10px; }
+
+#messaging {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  font-size: .675em;
+  text-transform: uppercase;
+  letter-spacing: .09em; }
