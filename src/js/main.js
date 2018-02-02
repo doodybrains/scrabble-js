@@ -1,8 +1,9 @@
 
-import {Board, getTileShelf, tileSpacesBoard} from './board'
+import {Board, getTileShelf, drawBoard} from './board'
+import {tileSpaces} from './tile-spaces'
 const getLettersButton = document.getElementById('get-letters');
 
 Board();
-tileSpacesBoard();
+drawBoard(tileSpaces);
 
-getLettersButton.addEventListener('click', evt => getTileShelf());
+getLettersButton.addEventListener('click', evt => getTileShelf("one"));

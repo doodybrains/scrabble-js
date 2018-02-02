@@ -16,7 +16,8 @@ body {
 
 #current-player {
   text-align: center;
-  margin-top: 60px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 
   p {
     margin: 0;
@@ -54,6 +55,7 @@ body {
     &:hover {
       border: 3px solid #ff00ff;
     }
+
     div {
       background: antiquewhite;
       height: 100%;
@@ -122,32 +124,37 @@ button:focus {
   position: relative;
 }
 
-#tile-shelf {
+#tile-shelf,
+#tile-shelf-two {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100px;
   margin-bottom: 20px;
+
+  .letter {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #000;
+    margin: 0 10px;
+    position: relative;
+    cursor: pointer;
+
+    .points {
+      position: absolute;
+      top: 2px;
+      right: 4px;
+      font-size: .2em;
+      display: block;
+    }
+  }
 }
 
-#tile-shelf .letter {
-  height: 50px;
-  width: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid #000;
-  margin: 0 10px;
-  position: relative;
-  cursor: pointer;
-
-  .points {
-    position: absolute;
-    top: 2px;
-    right: 4px;
-    font-size: .2em;
-    display: block;
-  }
+#tile-shelf-two {
+  display: none;
 }
 
 #messaging {
