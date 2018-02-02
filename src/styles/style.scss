@@ -7,22 +7,32 @@ html {
 }
 
 #main-wrapper {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 body {
   font-family: 'Roboto Slab', serif;
 }
 
+#current-player {
+  text-align: center;
+  margin-top: 60px;
+
+  p {
+    margin: 0;
+  }
+}
+
 .board-wrapper {
   border: 10px solid #eee;
   width: 400px;
-  margin: 0 auto;
   height: 400px;
-  margin: 50px auto 10px auto;
+  margin: 30px auto 10px auto;
+  position: relative;
 }
 
-#board {
+#board,
+#tile-board {
   border: 1px solid #000;
   height: 100%;
   width: 100%;
@@ -30,6 +40,30 @@ body {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+}
+
+#tile-board {
+  position: absolute;
+  top: 0;
+  background: transparent;
+  left: 0;
+
+  .tile-space {
+    cursor: pointer;
+
+    &:hover {
+      border: 3px solid #ff00ff;
+    }
+    div {
+      background: antiquewhite;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 2px 1px 2px 2px rgba(0,0,0,.5);
+    }
+  }
 }
 
 .space {
@@ -105,6 +139,7 @@ button:focus {
   border: 3px solid #000;
   margin: 0 10px;
   position: relative;
+  cursor: pointer;
 
   .points {
     position: absolute;
@@ -139,4 +174,5 @@ button:focus {
   letter-spacing: .25em;
   font-weight: bold;
   font-size: 1.5em;
+  margin-bottom: 20px;
 }

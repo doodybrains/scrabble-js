@@ -1,5 +1,5 @@
 export const tiles = [
-  {name: "__", count: 2, points: 0},
+  {name: " _ ", count: 2, points: 0},
   {name: "A", count: 9, points: 1},
   {name: "B", count: 2, points: 3},
   {name: "C", count: 2, points: 3},

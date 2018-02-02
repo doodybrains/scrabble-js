@@ -1,13 +1,15 @@
 import {spaces} from './spaces'
 import {tiles} from './tiles'
+import {tileSpaces} from './tile-spaces'
 
 let leftOverTiles = Letters();
-let playerOne = true;
 let word = [];
 let currentShelf = [];
 
 function Board() {
+  const playWord = document.getElementById('play-word');
   const board = document.getElementById('board');
+  const currentPlayer = document.getElementById('current-player');
 
   const boardSpaces = spaces.map((sp,i) => {
     return (
@@ -15,7 +17,81 @@ function Board() {
     );
   })
 
+  playWord.style.display = 'none';
   board.innerHTML = boardSpaces.join(" ");
+}
+
+function tileSpacesBoard() {
+  const tileBoard = document.getElementById('tile-board');
+
+  const boardSpaces = tileSpaces.map((tp, i) => {
+
+    return (
+      `<div id='${tp.id}' class='space tile-space'>${tp.letterEl}</div>`
+    )
+  })
+
+  tileBoard.innerHTML = boardSpaces.join(" ");
+
+  addClickHandler();
+}
+
+function addClickHandler() {
+  const tileSpaceElements = document.getElementsByClassName("tile-space");
+
+  for (var i = 0; i < tileSpaceElements.length; i++) {
+    const tile = tileSpaceElements[i];
+
+    tileSpaceElements[i].addEventListener('click', evt => chooseWordPosition(tile, word));
+  }
+}
+
+function chooseWordPosition(tile, word) {
+  const playWord = document.getElementById('play-word');
+  for (var i = 0; i < word.length; i++) {
+
+    tile.innerHTML = word[i];
+    addWordToBoard(word[i], tile);
+  }
+
+  playWord.style.display = 'block';
+}
+
+function addWordToBoard(wordLetter, tile) {
+  const playButton = document.getElementById('play-word');
+  const tileId = tile.id - 1;
+  tileSpaces[tileId].letterEl = wordLetter;
+
+
+  playButton.addEventListener('click', evt => drawBoard(tileSpaces));
+}
+
+function drawBoard(tileSpaces) {
+  const tileBoard = document.getElementById('tile-board');
+  const boardSpaces = tileSpaces.map((tp, i) => {
+
+    return (
+      `<div id='${tp.id}' class='space tile-space'>${tp.letterEl}</div>`
+    )
+  })
+
+  tileBoard.innerHTML = boardSpaces.join(" ");
+
+  switchPlayer();
+  addClickHandler();
+}
+
+
+function switchPlayer() {
+  const currentPlayer = document.getElementById('current-player');
+  const playButton = document.getElementById('play-word');
+  const getLettersButton = document.getElementById('get-letters');
+  const wordWrapper = document.getElementById('word');
+
+  word = [];
+  wordWrapper.innerHTML = word.join(" ");
+  playButton.style.display = 'none';
+  getLettersButton.style.display = 'block';
 }
 
 function Letters() {
@@ -120,7 +196,6 @@ function addToWord(tile, tilesOnShelf) {
   const wordWrapper = document.getElementById('word');
   wordWrapper.innerHTML = word.join(" ");
 
-  console.log(word);
   return tilesOnShelf;
 }
 
@@ -128,4 +203,4 @@ function getRandomNumber(letters) {
   return Math.floor(Math.random() * (letters - 0) + 0);
 }
 
-export {Board, getTileShelf};
+export {Board, getTileShelf, tileSpacesBoard};
