@@ -14,7 +14,7 @@ var _tileSpaces = require('./tile-spaces');
 
 var leftOverTiles = Letters();
 var word = [];
-var currentShelf = [];
+var player = "one";
 
 function Board() {
   var playWord = document.getElementById('play-word');
@@ -62,7 +62,7 @@ function addWordToBoard(wordLetter, tile) {
   var tileId = tile.id - 1;
   _tileSpaces.tileSpaces[tileId].letterEl = wordLetter;
 
-  var player = "two";
+  player = "two";
   var shelfOne = document.getElementById("tile-shelf");
   var shelfTwo = document.getElementById("tile-shelf-two");
 
@@ -107,9 +107,6 @@ function switchPlayer(player) {
 
   if (shelfTwo.style.display === "flex") {
     htmlTiles = shelfTwo.childNodes;
-  }
-
-  if (shelfTwo.style.display === "flex") {
     for (var i = 0; i < htmlTiles.length; i++) {
       var _tile = htmlTiles[i];
       playerTwoShelf.push(_tile.outerHTML);
@@ -180,6 +177,7 @@ function chooseTiles() {
     playerTiles.push(chosenLetter);
     chosenLetters.push(randomNumber);
   }
+
   if (leftOverLetters.length < 1) {
     messaging.innerHTML = '<p>game over</p>';
     getLettersButton.style.display = 'none';
@@ -237,8 +235,7 @@ function addToWord(tile, tilesOnShelf) {
   var tileShelf = document.getElementById("tile-shelf");
   var clickedLetter = tile.getAttribute('data-id');
   var wordLetter = '<div>' + clickedLetter + '</div>';
-  tile.classList.remove('on-shelf');
-  tile.style.display = 'none';
+
   word.push(wordLetter);
 
   for (var i = 0; i < tilesOnShelf.length; i++) {
@@ -248,8 +245,7 @@ function addToWord(tile, tilesOnShelf) {
     }
   }
 
-  var wordWrapper = document.getElementById('word');
-  wordWrapper.innerHTML = word.join(" ");
+  tile.style.border = "3px solid #ff00ff";
 
   return tilesOnShelf;
 }

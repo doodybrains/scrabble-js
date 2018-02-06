@@ -4,7 +4,7 @@ import {tileSpaces} from './tile-spaces'
 
 let leftOverTiles = Letters();
 let word = [];
-let currentShelf = [];
+let player = "one";
 
 function Board() {
   const playWord = document.getElementById('play-word');
@@ -48,16 +48,13 @@ function addWordToBoard(wordLetter, tile) {
   const tileId = tile.id - 1;
   tileSpaces[tileId].letterEl = wordLetter;
 
-
-  let player = "two";
+  player = "two";
   const shelfOne = document.getElementById("tile-shelf");
   const shelfTwo = document.getElementById("tile-shelf-two");
-
 
   if (shelfTwo.style.display === 'flex') {
     player = "one"
   }
-
 
   playButton.addEventListener('click', evt => drawBoard(tileSpaces, player));
 }
@@ -98,9 +95,6 @@ function switchPlayer(player) {
 
   if (shelfTwo.style.display === "flex") {
     htmlTiles = shelfTwo.childNodes;
-  }
-
-  if (shelfTwo.style.display === "flex") {
     for (var i = 0; i < htmlTiles.length; i++) {
       const tile = htmlTiles[i];
       playerTwoShelf.push(tile.outerHTML);
@@ -173,6 +167,7 @@ function chooseTiles() {
     playerTiles.push(chosenLetter);
     chosenLetters.push(randomNumber);
   }
+
   if (leftOverLetters.length < 1) {
     messaging.innerHTML = `<p>game over</p>`;
     getLettersButton.style.display = 'none';
@@ -227,8 +222,7 @@ function addToWord(tile, tilesOnShelf) {
   const tileShelf = document.getElementById("tile-shelf");
   let clickedLetter = tile.getAttribute('data-id');
   const wordLetter = `<div>${clickedLetter}</div>`;
-  tile.classList.remove('on-shelf');
-  tile.style.display = 'none';
+
   word.push(wordLetter);
 
   for (var i = 0; i < tilesOnShelf.length; i++) {
@@ -238,8 +232,7 @@ function addToWord(tile, tilesOnShelf) {
     }
   }
 
-  const wordWrapper = document.getElementById('word');
-  wordWrapper.innerHTML = word.join(" ");
+  tile.style.border = "3px solid #ff00ff";
 
   return tilesOnShelf;
 }
