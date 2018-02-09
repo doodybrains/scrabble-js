@@ -7,6 +7,8 @@ let word = [];
 let player = "one";
 
 function Board() {
+  //first call
+  // draws visual for scrabble board
   const playWord = document.getElementById('play-word');
   const board = document.getElementById('board');
   const currentPlayer = document.getElementById('current-player');
@@ -21,6 +23,28 @@ function Board() {
   board.innerHTML = boardSpaces.join(" ");
 }
 
+function drawBoard(tileSpaces, player) {
+  //first call
+  // draws transparent board on top of scrabble board
+  const tileBoard = document.getElementById('tile-board');
+  let boardSpaces = [];
+
+  if (tileSpaces) {
+    boardSpaces = tileSpaces.map((tp, i) => {
+
+      return (
+        `<div id='${tp.id}' class='space tile-space'>
+        ${tp.letterEl}</div>`
+      )
+    })
+
+    tileBoard.innerHTML = boardSpaces.join(" ");
+  }
+
+  switchPlayer(player);
+  addClickHandler();
+}
+
 function addClickHandler() {
   const tileSpaceElements = document.getElementsByClassName("tile-space");
 
@@ -31,53 +55,6 @@ function addClickHandler() {
   }
 }
 
-function chooseWordPosition(tile, word) {
-  const playWord = document.getElementById('play-word');
-
-  if (word) {
-    for (var i = 0; i < word.length; i++) {
-      tile.innerHTML = word[i];
-      addWordToBoard(word[i], tile);
-    }
-      playWord.style.display = 'block';
-  }
-}
-
-function addWordToBoard(wordLetter, tile) {
-  const playButton = document.getElementById('play-word');
-  const tileId = tile.id - 1;
-  tileSpaces[tileId].letterEl = wordLetter;
-
-  player = "two";
-  const shelfOne = document.getElementById("tile-shelf");
-  const shelfTwo = document.getElementById("tile-shelf-two");
-
-  if (shelfTwo.style.display === 'flex') {
-    player = "one"
-  }
-
-  playButton.addEventListener('click', evt => drawBoard(tileSpaces, player));
-}
-
-
-function drawBoard(tileSpaces, player) {
-  const tileBoard = document.getElementById('tile-board');
-  let boardSpaces = [];
-
-  if (tileSpaces) {
-    boardSpaces = tileSpaces.map((tp, i) => {
-
-      return (
-        `<div id='${tp.id}' class='space tile-space'>${tp.letterEl}</div>`
-      )
-    })
-
-    tileBoard.innerHTML = boardSpaces.join(" ");
-  }
-
-  switchPlayer(player);
-  addClickHandler();
-}
 
 function switchPlayer(player) {
   let playerOneShelf = [];
@@ -124,6 +101,35 @@ function switchPlayer(player) {
   }
 }
 
+
+function chooseWordPosition(tile, word) {
+  const playWord = document.getElementById('play-word');
+
+  if (word) {
+    for (var i = 0; i < word.length; i++) {
+      tile.innerHTML = word[i];
+      addWordToBoard(word[i], tile);
+    }
+      playWord.style.display = 'block';
+  }
+}
+
+function addWordToBoard(wordLetter, tile) {
+  const playButton = document.getElementById('play-word');
+  const tileId = tile.id - 1;
+  tileSpaces[tileId].letterEl = wordLetter;
+
+  player = "two";
+  const shelfOne = document.getElementById("tile-shelf");
+  const shelfTwo = document.getElementById("tile-shelf-two");
+
+  if (shelfTwo.style.display === 'flex') {
+    player = "one"
+  }
+
+  playButton.addEventListener('click', evt => drawBoard(tileSpaces, player));
+}
+
 function Letters() {
   const allTiles = [];
 
@@ -152,9 +158,13 @@ function LetterBag() {
   return allTiles
 }
 
-function chooseTiles() {
+function chooseTiles(amt) {
   let leftOverLetters = LetterBag();
   let amount = 7;
+  if (amt) {
+    amount = amt;
+  }
+
   let playerTiles = [];
   let chosenLetters = [];
   const messaging = document.getElementById("messaging");
@@ -179,6 +189,7 @@ function chooseTiles() {
 }
 
 function resetBag(chosenLetters, leftOverLetters) {
+  // updates letter bag
   for (var i=0; i < chosenLetters.length; i++) {
     leftOverLetters.splice(chosenLetters[i], 1);
   }
@@ -187,6 +198,7 @@ function resetBag(chosenLetters, leftOverLetters) {
 }
 
 function getTileShelf(player) {
+  // when get letters button is clicked
   const shelfTwo = document.getElementById("tile-shelf-two");
   let tileShelf = document.getElementById("tile-shelf-two");
 
@@ -202,7 +214,7 @@ function getTileShelf(player) {
 
   const chosenTiles = playerTiles.map((letter, i) => {
     return (
-      `<div data-id='${letter.name}' class='letter on-shelf'>${letter.name}<span class="points">${letter.points}</span></div>`
+      `<div data-id='${letter.name}' data-points='${letter.points}' class='letter on-shelf'>${letter.name}<span class="points">${letter.points}</span></div>`
     );
   })
 
@@ -213,15 +225,18 @@ function getTileShelf(player) {
 
   for (var i = 0; i < htmlTiles.length; i++) {
     const tile = htmlTiles[i];
-    htmlTiles[i].addEventListener('click', evt => addToWord(tile, playerTiles));
+    htmlTiles[i].addEventListener('click', evt => addToWord(tile, chosenTiles));
+    // every time letter on shelf is clicked
   }
 }
 
 
 function addToWord(tile, tilesOnShelf) {
+  // every time letter on shelf is clicked
   const tileShelf = document.getElementById("tile-shelf");
   let clickedLetter = tile.getAttribute('data-id');
-  const wordLetter = `<div>${clickedLetter}</div>`;
+  let clickedLetterPoints = tile.getAttribute('data-points');
+  const wordLetter = `<div>${clickedLetter}<span class="points">${clickedLetterPoints}</span></div>`;
 
   word.push(wordLetter);
 
@@ -233,8 +248,6 @@ function addToWord(tile, tilesOnShelf) {
   }
 
   tile.style.border = "3px solid #ff00ff";
-
-  return tilesOnShelf;
 }
 
 function getRandomNumber(letters) {

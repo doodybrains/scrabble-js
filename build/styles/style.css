@@ -5,28 +5,51 @@ html {
   box-sizing: inherit; }
 
 #main-wrapper {
-  margin-top: 60px; }
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  flex-direction: column; }
+  @media (min-width: 970px) {
+    #main-wrapper {
+      flex-direction: row;
+      align-items: stretch; } }
+  #main-wrapper .board-container {
+    width: 95%;
+    position: relative; }
+    @media (min-width: 970px) {
+      #main-wrapper .board-container {
+        width: 50%; } }
+    #main-wrapper .board-container .board-wrapper {
+      border: 10px solid #eee;
+      position: absolute;
+      width: 100%;
+      height: 100%; }
+  #main-wrapper .board-container:after {
+    content: "";
+    display: block;
+    padding-top: 100%; }
+  #main-wrapper .player-container {
+    width: 100%; }
+    @media (min-width: 970px) {
+      #main-wrapper .player-container {
+        width: 50%; } }
 
 body {
   font-family: 'Roboto Slab', serif; }
 
 #current-player {
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 20px; }
+  margin: 5px auto 8px auto; }
   #current-player p {
-    margin: 0; }
-
-.board-wrapper {
-  border: 10px solid #eee;
-  width: 400px;
-  height: 400px;
-  margin: 30px auto 10px auto;
-  position: relative; }
+    margin: 0;
+    font-size: 2em; }
+    @media (min-width: 970px) {
+      #current-player p {
+        font-size: 3em;
+        margin-bottom: 80px; } }
 
 #board,
 #tile-board {
-  border: 1px solid #000;
   height: 100%;
   width: 100%;
   position: relative;
@@ -41,8 +64,12 @@ body {
   left: 0; }
   #tile-board .tile-space {
     cursor: pointer; }
-    #tile-board .tile-space:hover {
-      border: 3px solid #ff00ff; }
+    @media (min-width: 970px) {
+      #tile-board .tile-space {
+        border: 3px solid transparent; } }
+    @media (min-width: 970px) {
+      #tile-board .tile-space:hover {
+        border: 3px solid #ff00ff; } }
     #tile-board .tile-space div {
       background: antiquewhite;
       height: 100%;
@@ -50,7 +77,24 @@ body {
       display: flex;
       align-items: center;
       justify-content: center;
+      font-weight: 700;
+      font-size: .75em;
+      position: relative;
       box-shadow: 2px 1px 2px 2px rgba(0, 0, 0, 0.5); }
+      @media (min-width: 970px) {
+        #tile-board .tile-space div {
+          font-size: 2.5em; } }
+      #tile-board .tile-space div .points {
+        position: absolute;
+        top: 1px;
+        right: 2px;
+        font-size: .1em;
+        display: block; }
+        @media (min-width: 970px) {
+          #tile-board .tile-space div .points {
+            top: 2px;
+            right: 4px;
+            font-size: .2em; } }
 
 .space {
   display: flex;
@@ -79,10 +123,26 @@ body {
 button {
   margin: 0 auto;
   display: block;
-  width: auto; }
+  width: auto;
+  -webkit-appearance: none;
+  border: 2px solid #000;
+  cursor: pointer;
+  height: 20px;
+  background: #fff; }
 
 button:focus {
   outline: 0; }
+
+.button {
+  height: 24px;
+  margin-bottom: 8px; }
+  @media (min-width: 970px) {
+    .button {
+      margin-bottom: 40px;
+      height: 50px; }
+      .button button {
+        font-size: .875em;
+        height: 30px; } }
 
 #letter-bag {
   margin-top: 100px;
@@ -107,26 +167,38 @@ button:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100px;
   margin-bottom: 20px; }
   #tile-shelf .letter,
   #tile-shelf-two .letter {
-    height: 50px;
-    width: 50px;
+    height: 30px;
+    width: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 3px solid #000;
     margin: 0 10px;
     position: relative;
-    cursor: pointer; }
+    cursor: pointer;
+    font-size: .75em; }
+    @media (min-width: 970px) {
+      #tile-shelf .letter,
+      #tile-shelf-two .letter {
+        height: 50px;
+        width: 50px;
+        font-size: 1em; } }
     #tile-shelf .letter .points,
     #tile-shelf-two .letter .points {
       position: absolute;
-      top: 2px;
-      right: 4px;
-      font-size: .2em;
+      top: 1px;
+      right: 2px;
+      font-size: .1em;
       display: block; }
+      @media (min-width: 970px) {
+        #tile-shelf .letter .points,
+        #tile-shelf-two .letter .points {
+          top: 2px;
+          right: 4px;
+          font-size: .2em; } }
 
 #tile-shelf-two {
   display: none; }

@@ -1,3 +1,17 @@
+@mixin breakpoint($class) {
+  @if $class == sm {
+    @media (min-width: 970px) { @content; }
+  }
+
+  @else if $class == lg {
+    @media (min-width: 1200px) { @content; }
+  }
+
+  @else {
+    @warn "Breakpoint mixin supports: xs, sm, md, lg";
+  }
+}
+
 html {
   box-sizing: border-box;
 }
@@ -8,6 +22,41 @@ html {
 
 #main-wrapper {
   margin-top: 60px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  @include breakpoint(sm) {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .board-container {
+    width: 95%;
+    position: relative;
+    @include breakpoint(sm) {
+      width: 50%;
+    }
+
+    .board-wrapper {
+      border: 10px solid #eee;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .board-container:after {
+    content: "";
+    display: block;
+    padding-top: 100%;
+  }
+
+  .player-container {
+    width: 100%;
+    @include breakpoint(sm) {
+      width: 50%;
+    }
+  }
 }
 
 body {
@@ -16,25 +65,20 @@ body {
 
 #current-player {
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 5px auto 8px auto;
 
   p {
     margin: 0;
+    font-size: 2em;
+    @include breakpoint(sm) {
+      font-size: 3em;
+      margin-bottom: 80px;
+    }
   }
-}
-
-.board-wrapper {
-  border: 10px solid #eee;
-  width: 400px;
-  height: 400px;
-  margin: 30px auto 10px auto;
-  position: relative;
 }
 
 #board,
 #tile-board {
-  border: 1px solid #000;
   height: 100%;
   width: 100%;
   position: relative;
@@ -51,9 +95,14 @@ body {
 
   .tile-space {
     cursor: pointer;
+    @include breakpoint(sm) {
+      border: 3px solid transparent;
+    }
 
     &:hover {
-      border: 3px solid #ff00ff;
+      @include breakpoint(sm) {
+        border: 3px solid #ff00ff;
+      }
     }
 
     div {
@@ -63,7 +112,26 @@ body {
       display: flex;
       align-items: center;
       justify-content: center;
+      font-weight: 700;
+      font-size: .75em;
+      position: relative;
       box-shadow: 2px 1px 2px 2px rgba(0,0,0,.5);
+      @include breakpoint(sm) {
+        font-size: 2.5em;
+      }
+
+      .points {
+        position: absolute;
+        top: 1px;
+        right: 2px;
+        font-size: .1em;
+        display: block;
+        @include breakpoint(sm) {
+          top: 2px;
+          right: 4px;
+          font-size: .2em;
+        }
+      }
     }
   }
 }
@@ -98,10 +166,29 @@ button {
   margin: 0 auto;
   display: block;
   width: auto;
+  -webkit-appearance: none;
+  border: 2px solid #000;
+  cursor: pointer;
+  height: 20px;
+  background: #fff;
 }
 
 button:focus {
   outline: 0;
+}
+
+.button {
+  height: 24px;
+  margin-bottom: 8px;
+  @include breakpoint(sm) {
+    margin-bottom: 40px;
+    height: 50px;
+
+    button {
+      font-size: .875em;
+      height: 30px;
+    }
+  }
 }
 
 #letter-bag {
@@ -129,12 +216,11 @@ button:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100px;
   margin-bottom: 20px;
 
   .letter {
-    height: 50px;
-    width: 50px;
+    height: 30px;
+    width: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -142,13 +228,24 @@ button:focus {
     margin: 0 10px;
     position: relative;
     cursor: pointer;
+    font-size: .75em;
+    @include breakpoint(sm) {
+      height: 50px;
+      width: 50px;
+      font-size: 1em;
+    }
 
     .points {
       position: absolute;
-      top: 2px;
-      right: 4px;
-      font-size: .2em;
+      top: 1px;
+      right: 2px;
+      font-size: .1em;
       display: block;
+      @include breakpoint(sm) {
+        top: 2px;
+        right: 4px;
+        font-size: .2em;
+      }
     }
   }
 }

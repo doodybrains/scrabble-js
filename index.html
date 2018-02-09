@@ -2,8 +2,9 @@
 <html>
 <head>
   <title>scrabble</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="https://s3-us-west-1.amazonaws.com/marceldochamp.net/sccrraaaabbbble/favicon.ico" type="image/ico">
-  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700" rel="stylesheet">
   <link rel="stylesheet" href="build/styles/style.css">
 </head>
 
@@ -13,21 +14,27 @@
 
 
   <div id="main-wrapper">
-    <div class="board-wrapper">
+    <div class="board-container">
+      <div class="board-wrapper">
+        <div id="board"></div>
 
-      <div id="board"></div>
-
-      <div id="tile-board"></div>
+        <div id="tile-board"></div>
+      </div>
     </div>
 
-    <div id="tile-shelf"></div>
-    <div id="tile-shelf-two"></div>
 
-    <div id="word"></div>
+    <div class="player-container">
+      <div id="current-player"><p>player one</p></div>
+      <div class="button">
+        <button id="get-letters">get  letters</button>
+        <button id="play-word">play word</button>
+      </div>
 
-    <div id="current-player"><p>player one</p></div>
-    <button id="get-letters">get  letters</button>
-    <button id="play-word">play word</button>
+      <div id="tile-shelf"></div>
+      <div id="tile-shelf-two"></div>
+
+      <div id="word"></div>
+    </div>
   </div>
 
   <div id="letter-bag"></div>
