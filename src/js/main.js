@@ -1,9 +1,16 @@
 
-import {Board, getTileShelf, drawBoard} from './board'
-import {tileSpaces} from './tile-spaces'
+import {drawBoard} from './gameboard'
+import {getTileShelf} from './getTileShelf'
+import {baseboard} from './baseboard'
+import {tileSpaces} from './tileSpaces'
+import {spaces} from './spaces'
 const getLettersButton = document.getElementById('get-letters');
 
-Board();
-drawBoard(tileSpaces);
+let word = [];
+let player = "one"
 
-getLettersButton.addEventListener('click', evt => getTileShelf("one"));
+baseboard(spaces);
+
+drawBoard(tileSpaces, "one", word);
+
+getLettersButton.addEventListener('click', evt => getTileShelf(player, word));
