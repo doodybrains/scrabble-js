@@ -1,4 +1,4 @@
-import {chooseTiles} from './chooseTiles.js'
+import {addLettersToShelf} from './addLettersToShelf.js'
 
 function drawScrabbleBoard(boardSpaces, letterSpaces) {
   const board = document.getElementById('board');
@@ -22,21 +22,10 @@ function drawScrabbleBoard(boardSpaces, letterSpaces) {
 
   letterBoard.innerHTML = allLetterSpaces.join(" ");
 
-
-  getLettersBtn.addEventListener('click', displayLetterShelf);
+  getLettersBtn.addEventListener('click', function() {
+    addLettersToShelf(letterSpaces)
+  });
 }
 
-function displayLetterShelf() {
-  let playerTiles = chooseTiles();
-
-  const chosenTiles = playerTiles.map((letter, i) => {
-    return (
-      `<div data-id='${letter.name}' data-points='${letter.points}' class='letter on-shelf'>${letter.name}<span class="points">${letter.points}</span></div>`
-    );
-  })
-
-  let tileShelf = document.getElementById("tile-shelf");
-  tileShelf.innerHTML = chosenTiles.join(" ");
-}
 
 export {drawScrabbleBoard};
