@@ -20,6 +20,8 @@ html {
   box-sizing: inherit;
 }
 
+#play-word { display: none; }
+
 #main-wrapper {
   margin-top: 60px;
   display: flex;
@@ -194,7 +196,6 @@ button:focus {
 #letter-bag {
   margin-top: 100px;
   display: flex;
-  display: none;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;

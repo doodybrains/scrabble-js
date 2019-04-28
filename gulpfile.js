@@ -6,7 +6,7 @@ var connect = require('gulp-connect');
 var sass = require('gulp-sass');
 
 gulp.task('js', function () {
-  return browserify('./src/js/main.js')
+  return browserify('./src/js/new/scrabble.js')
   .transform(babelify, {
     presets: ['es2015']
   })

@@ -1,4 +1,4 @@
-export const spaces = [
+export const boardSpaces = [
   {id: 1, type: 'tw'},
   {id: 2, type: ' '},
   {id: 3, type: ' '},

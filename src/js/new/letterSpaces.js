@@ -1,4 +1,4 @@
-export const tileSpaces = [
+export const letterSpaces = [
   {id: 1, letterEl: ' ', points: ' '},
   {id: 2, letterEl: ' ', points: ' '},
   {id: 3, letterEl: ' ', points: ' '},
